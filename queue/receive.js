@@ -20,9 +20,14 @@ amqp.connect('amqp://localhost', (error0, connection) => {
     console.log(" [*] Waiting for messages in %s. To exit press CTRL+C", queue);
 
     channel.consume(queue, (msg) => {
+      const secs = msg.content.toString().split('.').length - 1;
       console.log(" [x] Received %s", msg.content.toString());
+
+      setTimeout(() => {
+        console.log(" [x] Done");
+      }, secs * 1000);
     }, {
-        noAck: true
+        noAck: false
       });
   });
 });
