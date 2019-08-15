@@ -10,21 +10,19 @@ amqp.connect('amqp://localhost', (error0, connection) => {
     if (error1) {
       throw error1;
     }
-
-    const queue = 'hello';
+    const queue = 'task_queue';
     const msg = process.argv.slice(2).join(' ') || "Hello World!";
 
     channel.assertQueue(queue, {
-      durable: false
+      durable: true
     });
     channel.sendToQueue(queue, Buffer.from(msg), {
       persistent: true
     });
-
-    console.log(" [x] Sent %s", msg);
+    console.log(" [x] Sent '%s'", msg);
   });
   setTimeout(() => {
     connection.close();
-    process.exit(0);
+    process.exit(0)
   }, 500);
 });
