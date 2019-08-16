@@ -1,1 +1,1 @@
-# ci-register-service
+# learning-rabbitmq
